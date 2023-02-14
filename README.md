@@ -1,6 +1,6 @@
 # SolidityDocSearcher
 
-鉴于 https://docs.soliditylang.org/en/latest/ 或 https://solidity-cn.readthedocs.io/zh/develop/index.html 搜索起来特别费劲. 写了一个脚本: 将文档中的<h1>到<h6>进行索引, 然后进行搜索
+鉴于 https://docs.soliditylang.org/en/latest/ 或 https://solidity-cn.readthedocs.io/zh/develop/index.html 搜索起来特别费劲. 写了一个脚本: 将文档中的标题进行索引, 然后进行搜索
 
 ![image](https://github.com/yinhui1984/imagehosting/blob/main/images/1676379274878266000.png?raw=true)
 
