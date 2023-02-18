@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from importlib.resources import path
 import os
 
 from bs4 import BeautifulSoup
@@ -36,8 +37,13 @@ def get_doc_outline(doc_path, cache_path):
 
 
 def search_doc(keyword):
-    outlines = get_doc_outline('./solidity-develop/index.html', './outlines.txt')
-    outlines_cn = get_doc_outline('./solidity-docs-chinese-v0.8.17/index.html', './outlines-cn.txt')
+    current_dir = os.path.dirname(__file__)
+    indexHtml = os.path.join(current_dir, 'solidity-develop/index.html')
+    indexHtml_cn = os.path.join(current_dir, 'solidity-docs-chinese-v0.8.17/index.html')
+    outlines_txt = os.path.join(current_dir, 'outlines.txt')
+    outlines_cn_txt = os.path.join(current_dir, 'outlines-cn.txt')
+    outlines = get_doc_outline(indexHtml, outlines_txt)
+    outlines_cn = get_doc_outline(indexHtml_cn, outlines_cn_txt)
     matched = []
     for index, outline in enumerate(outlines):
         if keyword in outline:
@@ -47,9 +53,9 @@ def search_doc(keyword):
         print(str(matched.index(href)).ljust(2), "\t",  href.strip('#').replace('-', ' '))
     index = input("\033[1;32;40mSelect:\033[0m")
     selected = matched[int(index)]
-    url = 'file://' + os.path.abspath('./solidity-develop/index.html') + selected
+    url = 'file://' + indexHtml + selected
     if selected in outlines_cn:
-        url = 'file://' + os.path.abspath('./solidity-docs-chinese-v0.8.17/index.html') + selected
+        url = 'file://' + indexHtml_cn + selected
     cmd = chrome + " " + url
     # print(cmd)
     os.system(cmd)
